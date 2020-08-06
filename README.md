@@ -5,3 +5,27 @@
 
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html) ![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 [![Generic badge](https://img.shields.io/badge/Language-C-<COLOR>.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/Kernel-Module-red.svg)](https://shields.io/) ![GitHub contributors](https://img.shields.io/github/contributors/Naereen/StrapDown.js.svg)
+
+# Building Angular-Kernel
+
+> Clone repo
+
+    git clone https://github.com/divakar-lakhera/Angular-Kernel.git
+   
+
+> Using Terminal (Requires GNU GCC and build-tools)
+
+    $ make clean
+    $ make
+   >Using any disk image editor ( ex. PowerISO) write boot.img
+   
+
+    from Kernel-Builds/
+    open boot.img using PowerISO
+    replace old "sysLoad.k" from latest built sysLoad.k from Kernel-Builds
+    
+   # Testing Kernel
+ Testing Environment : 
+> Bochs (x86 Emulator) & 128 MB Ram
+
+> Test the boot.img by clicking on test_boot.bxrc (Requires Bochs installed)
