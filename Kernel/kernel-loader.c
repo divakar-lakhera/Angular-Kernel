@@ -13,6 +13,8 @@ int main()
 	while(!isReady())
 		trySetVGATextState(1);
 	VGATextClearScreen();
+	kprintf("Video Driver Loaded Successfully..\n");
+	kprintf("Wecome To Angular v0.1\n");
 	kprintf("Hello World");
 	return 0xBADBAD;
 }
