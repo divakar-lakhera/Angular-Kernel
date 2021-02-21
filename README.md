@@ -29,3 +29,11 @@
 > Bochs (x86 Emulator) & 128 MB Ram
 
 > Test the boot.img by clicking on test_boot.bxrc (Requires Bochs installed)
+
+# Screenshots
+> Bootloader showing executable kernel
+
+![screen-shot1](https://github.com/divakar-lakhera/Angular-Kernel/blob/master/readme-rsc/emu1.png)
+> Kernel Loaded
+> 
+![screen-shot2](https://github.com/divakar-lakhera/Angular-Kernel/blob/master/readme-rsc/emu2.png)
