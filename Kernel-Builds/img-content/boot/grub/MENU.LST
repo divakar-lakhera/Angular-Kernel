@@ -1,6 +1,0 @@
-timeout 10
-
-title	 Angular-Kernel (v0.0.1)
-	root (fd0)
-	kernel /sysLoad.k
-        module /initrd
