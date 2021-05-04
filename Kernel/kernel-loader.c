@@ -17,12 +17,13 @@ int kmain(unsigned long magic, unsigned long addr)
 	trySetVGATextState(1);
 	VGATextClearScreen();
 	kprintf("Kernel is loading..\n");
+	gdtInit();
 	// Start loading multiboot information structure
 	multiboot_info_t *multibootBlock;
 	multiboot_info_t *AddressBlock;
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC){
     	kprintf("Invalid magic number: 0x%x\n", (unsigned) magic);
-    	return;
+    	return 0;
     }
 	AddressBlock = (multiboot_info_t *) addr;
 
@@ -63,7 +64,7 @@ int kmain(unsigned long magic, unsigned long addr)
 	if (CHECK_FLAG (AddressBlock->flags, 4) && CHECK_FLAG (AddressBlock->flags, 5))
 		{
 		kprintf ("Both bits 4 and 5 are set.\n");
-		return;
+		return 0;
 		}
 
 	/* Is the symbol table of a.out valid? */
@@ -109,6 +110,7 @@ int kmain(unsigned long magic, unsigned long addr)
 					(unsigned) (mmap->len & 0xffffffff),
 					(unsigned) mmap->type);
 		}
+	
 	kprintf("Ready !\n");
 	kprintf("--------------------------------------------------------------\n\n");
 	kprintf("Wecome To Angular v0.1\n");
