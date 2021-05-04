@@ -13,12 +13,18 @@
 
 int kmain(unsigned long magic, unsigned long addr)
 {	
+	// Setup Text Mode
 	while(!isReady())
 	trySetVGATextState(1);
 	VGATextClearScreen();
+	
 	kprintf("Kernel is loading..\n");
+	
+	// Setup GDT,Interrupts
 	gdtInit();
-	// Start loading multiboot information structure
+
+
+	// Start loading multiboot information structure and run some checks.
 	multiboot_info_t *multibootBlock;
 	multiboot_info_t *AddressBlock;
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC){
@@ -110,6 +116,7 @@ int kmain(unsigned long magic, unsigned long addr)
 					(unsigned) (mmap->len & 0xffffffff),
 					(unsigned) mmap->type);
 		}
+	
 	
 	kprintf("Ready !\n");
 	kprintf("--------------------------------------------------------------\n\n");

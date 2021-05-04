@@ -3,7 +3,7 @@
     Written By: Divakar Lakhera
     Angular Kernel
 */
-#include "i32_gdt.h"
+#include "i32Gdt.h"
 
 struct gdtEntry gdt[3];  // null,CS,DS
 struct gdtPointer kernelGDT;

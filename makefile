@@ -5,7 +5,7 @@
 KL= Kernel/
 OUTLOC= Kernel-Builds/
 SOURCES=$(KL)bridge.o $(KL)kernel-loader.o $(KL)misc/portIO.o $(KL)drivers/VGA/vga_console.o $(KL)misc/string.o \
-	$(KL)arch/i32_gdt.o $(KL)arch/i32_gdtFlush.o 
+	$(KL)arch/i32Gdt.o $(KL)arch/i32GdtFlush.o 
 ASMS = $(KL)bridge.s
 CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector -m32
 LDFLAGS=-T linker.ld -m elf_i386
