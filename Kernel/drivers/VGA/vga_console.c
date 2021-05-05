@@ -7,7 +7,7 @@
 
 #define BIOS_VGA_CONTROLLER_TEXT  (unsigned short *)0xB8000    
 #define CRT_CONTROL_REG 0x3D4
-#define CRT_DATA_REG 0x3D4
+#define CRT_DATA_REG 0x3D5
 u8int STATE_READY=0; // 0: Not_Ready (Maybe in Higher Graphics mode or System Not Ready) 1: Ready
 int index_x=0;
 int index_y=0;
@@ -33,22 +33,35 @@ void VGATextSetColor(u8int fg, u8int bg){
 }
 
 void VGATextUpdateCursor(){
-    if(!isReady()){
-        if(trySetVGATextState(1)){
-            VGATextUpdateCursor();
-            return;
-        }
-        else{
-            // TODO
-            // panic(); // KERNEL PANIC: Unable To Start VGA Controller
-        }
-    }
     unsigned linerAddress=(index_y*80)+index_x;
     outb(CRT_CONTROL_REG,14);
     outb(CRT_DATA_REG,linerAddress>>8);
     outb(CRT_CONTROL_REG,15);
     outb(CRT_DATA_REG,linerAddress);
     return;
+}
+
+void VGATextScroll(void)
+{
+    unsigned blank, temp;
+
+    /* A blank is defined as a space... we need to give it
+    *  backcolor too */
+    blank = 0x20 | (attribute << 8);
+
+    /* Row 25 is the end, this means we need to scroll up */
+    if(index_y >= 25)
+    {
+        /* Move the current text chunk that makes up the screen
+        *  back in the buffer by a line */
+        temp = index_y- 25 + 1;
+        memcpy (BIOS_VGA_CONTROLLER_TEXT, BIOS_VGA_CONTROLLER_TEXT + temp * 80, (25 - temp) * 80 * 2);
+
+        /* Finally, we set the chunk of memory that occupies
+        *  the last line of text to our 'blank' character */
+        memsetw (BIOS_VGA_CONTROLLER_TEXT + (25 - temp) * 80, blank, 80);
+        index_y = 25 - 1;
+    }
 }
 
 
@@ -105,7 +118,7 @@ void VGATextPutch(char ch){
         index_y++;
     }
     VGATextUpdateCursor();
-    // Do Scroll
+    VGATextScroll();
 }
 
 void kprintf (const char *format, ...)

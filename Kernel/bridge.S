@@ -164,8 +164,6 @@ multiboot_entry:
 loop:   hlt
         jmp     loop
 
-halt_message:
-        .asciz  "Halted."
 
         /* Our stack area. */
         .comm   stack, STACK_SIZE
