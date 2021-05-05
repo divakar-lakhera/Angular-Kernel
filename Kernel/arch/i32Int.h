@@ -22,5 +22,8 @@ struct idtPointer
     unsigned int base;
 } __attribute__((packed));
 
+void setupFaultGates();
+void mapInterrupt();
+extern void idtFlush();
 
 #endif

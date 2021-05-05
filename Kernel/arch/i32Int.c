@@ -32,7 +32,7 @@ void setGateForIDT(unsigned char num, unsigned long baseAddress, unsigned short 
 void idtUpdate(){
     /* Sets the special IDT pointer up, just like in 'gdt.c' */
     kernelIDTPointer.limit = (sizeof (struct idtEntry) * 256) - 1;
-    kernelIDTPointer.base = &kernelIDT;
+    kernelIDTPointer.base = (unsigned int) &kernelIDT;
 
     /* Clear out the entire IDT, initializing it to zeros */
     memset(&kernelIDT, 0, sizeof(struct idtEntry) * 256);

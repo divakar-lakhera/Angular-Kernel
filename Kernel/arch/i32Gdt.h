@@ -23,5 +23,6 @@ struct gdtPointer
     unsigned int base;
 } __attribute__((packed));
 
+void flushgTables();
 
 #endif

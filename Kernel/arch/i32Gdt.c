@@ -22,7 +22,7 @@ void setEntry(int segmentSelector,unsigned long baseAddress,unsigned long limitA
 void gdtInit(){
     /* Setup the GDT pointer and limit */
     kernelGDT.limit = (sizeof(struct gdtEntry) * 3) - 1;
-    kernelGDT.base = &gdt;
+    kernelGDT.base = (unsigned int) &gdt;
 
     /* Our NULL descriptor */
     setEntry(0, 0, 0, 0, 0);

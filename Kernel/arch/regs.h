@@ -1,6 +1,8 @@
 /*
     regs.h
 */
+#ifndef KERNEL__32REGS__
+#define KERNEL__32REGS__
 
 struct regs
 {
@@ -9,3 +11,5 @@ struct regs
     unsigned int int_no, err_code;
     unsigned int eip, cs, eflags, useresp, ss;    
 };
+
+#endif

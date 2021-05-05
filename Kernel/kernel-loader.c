@@ -15,17 +15,14 @@ int kmain(unsigned long magic, unsigned long addr)
 {	
 	asm volatile("cli");
 	// Setup Text Mode
-	while(!isReady())
 	trySetVGATextState(1);
 	VGATextClearScreen();
 	
 	kprintf("Kernel is loading..\n");
 
-
 	// Setup GDT,Interrupts
 	gdtInit();
 	idtUpdate();
-
 
 	// Start loading multiboot information structure and run some checks.
 	multiboot_info_t *multibootBlock;
@@ -114,13 +111,21 @@ int kmain(unsigned long magic, unsigned long addr)
 					(unsigned) (mmap->len & 0xffffffff),
 					(unsigned) mmap->type);
 	}
-	timer_install();
+	installClock();
 	asm volatile ("sti");
+	kprintf("Waiting for 5 ticks");
+	int prevTick = -1;
+	while(kernelGetUpTicks()<5){
+		if(prevTick !=kernelGetUpTicks()){
+			kprintf(".");
+			prevTick = kernelGetUpTicks();
+		}
+	}
+	kprintf(" : OK\n");
 	kprintf("Ready !\n");
 	kprintf("--------------------------------------------------------------\n\n");
 	kprintf("Wecome To Angular v0.1\n");
 	kprintf("Hello World\n");
-	kprintf("Les Goo !");
 	for(;;);
 	return 0xBADBAD;
 }

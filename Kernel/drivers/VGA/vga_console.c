@@ -113,6 +113,13 @@ void VGATextPutch(char ch){
     else if(ch=='\r'){
         index_x=0;
     }
+    else if(ch=='\b'){
+        index_x--;
+        index_x = max(index_x,0);
+        VGATextPutch(' ');
+        index_x--;
+        index_x = max(index_x,0);        
+    }
     if(index_x>80){
         index_x=0;
         index_y++;

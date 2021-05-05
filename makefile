@@ -20,7 +20,7 @@ NASMF = -f elf32
 all: $(SOURCES) link
 
 clean:
-	-rm $(KL)*.o $(OUTLOC)sysLoad.k $(OUTLOC)/img-content/boot/sysLoad.k $(ARCH)*.o
+	-rm $(KL)*.o $(OUTLOC)sysLoad.k $(OUTLOC)/img-content/boot/sysLoad.k $(ARCH)*.o $(DRV)*.o $(DRV)VGA/*.o
 
 link:
 	ld $(LDFLAGS) -o $(OUTLOC)sysLoad.k $(SOURCES)
